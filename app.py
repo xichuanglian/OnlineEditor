@@ -36,6 +36,22 @@ def saveFile():
     else:
         return "1"
 
+@app.route('/eventLog', methods = ['POST'])
+def eventLog():
+    succeeded = False
+    try:
+        with open(CONFIG['event_log'], 'a') as logFile:
+            print request.form['log']
+            logFile.write(request.form['log'])
+            succeeded = True
+    except:
+        succeeded = False
+
+    if succeeded:
+        return "0"
+    else:
+        return "1"
+
 if __name__ == "__main__":
     with open("./config.json", 'rt') as configFile:
         CONFIG = json.loads(configFile.read())
