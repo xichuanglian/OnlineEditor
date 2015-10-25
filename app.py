@@ -16,7 +16,7 @@ def index():
 def getTargetFile():
     fileContent = "File not found."
     with open(CONFIG['target_file'], 'rt') as targetFile:
-        fileContent = targetFile.read()
+        fileContent = targetFile.read().decode('UTF-8')
     return fileContent
 
 @app.route('/targetFile', methods = ['POST'])
@@ -25,7 +25,7 @@ def saveFile():
     succeeded = False
     try:
         with open(tmpFile, 'w') as targetFile:
-            targetFile.write(request.form['fileContent'])
+            targetFile.write(request.form['fileContent'].encode('UTF-8'))
             succeeded = True
     except:
         succeeded = False
@@ -41,7 +41,6 @@ def eventLog():
     succeeded = False
     try:
         with open(CONFIG['event_log'], 'a') as logFile:
-            print request.form['log']
             logFile.write(request.form['log'])
             succeeded = True
     except:
