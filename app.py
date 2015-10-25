@@ -41,7 +41,7 @@ def eventLog():
     succeeded = False
     try:
         with open(CONFIG['event_log'], 'a') as logFile:
-            logFile.write(request.form['log'])
+            logFile.write(request.form['log'].encode('UTF-8'))
             succeeded = True
     except:
         succeeded = False
